@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<hr>
+
+{% if city_details %}
+<div class="city_list">
+    <div class="city-name">
+        <h2>Weather in {{ city_details.name }}, {{ city_details.sys.country }}</h2>
+    </div>
+    <div class="temp">
+        <h2>
+            {% for a in city_details.weather %}
+            <img src="http://openweathermap.org/img/w/{{a.icon}}.png" alt="" srcset="">
+            {% endfor %} {{city_details.main.temp}} °C</h2>
+    </div>
+    <div class="main">
+        {% for a in city_details.weather %}
+        <h2>{{a.description}}</h2>
+        {% endfor %}
+    </div>
+    <table>
+        <tr>
+            <th>Wind</th>
+            <td>{{city_details.wind.speed}} M/S in {{city_details.wind.deg}}°</td>
+        </tr>
+        <tr>
+            <th>Clouds</th>
+            <td>
+                {{city_details.clouds.all}} %
+            </td>
+        </tr>
+        <tr>
+            <th>Pressure</th>
+            <td>{{city_details.main.pressure}} hpa</td>
+        </tr>
+        <tr>
+            <th>Humidity</th>
+            <td>{{city_details.main.humidity}} %</td>
+        </tr>
+        <tr>
+            <th>SunRise</th>
+            <td>{{ sr }}</td>
+        </tr>
+        <tr>
+            <th>SunSet</th>
+            <td>{{st}}</td>
+        </tr>
+        <tr>
+            <th>Geo coords</th>
+            <td>[ {{city_details.coord.lon}} , {{city_details.coord.lat}} ]</td>
+        </tr>
+    </table>
+    {% endif %}
+
+    {% endblock %}

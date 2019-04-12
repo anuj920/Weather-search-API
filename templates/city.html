@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+<h2>Search Result For {{ q }}:</h2>
+
+{% if city_list.list %}
+<table>
+  <tr>
+    <th>City Id</th>
+    <th>City Name</th>
+    <th>Country Code</th>
+    <th>City Coordinate</th>
+  </tr>
+  {% for city in city_list.list %}
+  <tr>
+    <td>
+      <div class="city_list">
+        <h3><a href="{% url 'city_detail' pk=city.id %}">{{ city.id }}</a></h3>
+    </td>
+    <td>
+      <h3>{{ city.name }}</h3>
+    </td>
+    <td>
+      {{ city.sys.country }}
+    </td>
+    <td>
+      <div class="location">
+        <p> Latitude: {{ city.coord.lat }}</p>
+        <p> Longitude: {{ city.coord.lon }}</p>
+      </div>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% else %}
+<h3>No Match Found</h3>
+{% endif %}
+
+{% endblock %}
