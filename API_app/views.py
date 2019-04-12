@@ -12,14 +12,14 @@ def city_list(request):
     city_list = {}
     if 'query' in request.GET:
         query = request.GET['query']
-        url = 'http://api.openweathermap.org/data/2.5/find?q=%s&units=metric&appid=90bdd6d0fb6e366c2f3e560ca6b4cfcf' % query
+        url = 'http://api.openweathermap.org/data/2.5/find?q=%s&units=metric&appid=appkey' % query
         response = requests.get(url)
         city_list = response.json()
     return render(request, 'city.html', {'city_list': city_list,'q':query})
 
 def city_detail(request,pk):
     city_details = {}
-    url = 'http://api.openweathermap.org/data/2.5/weather?id=%s&units=metric&APPID=90bdd6d0fb6e366c2f3e560ca6b4cfcf' % pk
+    url = 'http://api.openweathermap.org/data/2.5/weather?id=%s&units=metric&APPID=appkey' % pk
     response = requests.get(url)
     city_details = response.json()
     sunrise = city_details['sys']['sunrise']
@@ -28,3 +28,4 @@ def city_detail(request,pk):
     sunset = make_aware(datetime.fromtimestamp(sunset))
     return render(request,'city_detail.html',{'city_details': city_details,'sr':sunrise,'st':sunset})
 
+#appkey=API KEY provided by API OWNER
